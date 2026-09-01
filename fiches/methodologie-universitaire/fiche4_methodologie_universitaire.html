@@ -4,30 +4,30 @@
 <meta charset="UTF-8">
 <title>Justicia Academie - Fiche n°4 · Rechercher un document législatif</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap');
 
   :root {
-    --navy: #16233F;
-    --navy-deep: #0D1626;
-    --gold: #C9A94E;
-    --gold-light: #F7F4EC;
-    --ivory: #FDFCF9;
-    --ink: #33322D;
-    --ink-soft: #5C5C58;
-    --bordeaux: #7B1E2B;
-    --bordeaux-bg: #FBEFEF;
-    --sage: #3D5A45;
-    --sage-bg: #EEF3EE;
-    --slate: #5A6B87;
-    --slate-bg: #EEF1F6;
-    --hairline: #E2D9BC;
+    --navy: #2E2A26;
+    --navy-deep: #1F1B17;
+    --gold: #B9975B;
+    --gold-light: #F7EEDC;
+    --ivory: #FBF8F3;
+    --ink: #2E2A26;
+    --ink-soft: #6B645C;
+    --bordeaux: #6B1523;
+    --bordeaux-bg: #F6EBEC;
+    --sage: #2F4A3B;
+    --sage-bg: #EDF1EC;
+    --slate: #55606B;
+    --slate-bg: #EEF0EC;
+    --hairline: #CBB683;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: #ECE9E2;
-    font-family: 'Cormorant Garamond', serif;
+    background: #F4EFE6;
+    font-family: 'Inter', sans-serif;
     color: var(--ink);
     padding: 40px 16px 80px;
   }
@@ -36,9 +36,7 @@
     max-width: 780px;
     margin: 0 auto 36px;
     background: var(--ivory);
-    border: 1px solid var(--hairline);
-    padding: 48px 56px 56px;
-    box-shadow: 0 10px 34px rgba(20,20,20,0.08);
+    border: 1px solid var(--ink); padding: 48px 56px 56px; box-shadow: 6px 6px 0 var(--ink);
   }
 
   /* ---------- header ---------- */
@@ -56,12 +54,12 @@
     font-size: 10.5px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #A98B2E;
+    color: #8C6F3F;
     margin-bottom: 6px;
     font-weight: 600;
   }
   .masthead h1 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: 25px;
     font-weight: 600;
     color: var(--navy);
@@ -110,15 +108,11 @@
     list-style: none;
     margin: 4px 0 0 20px;
   }
-  .plan ul.sub li {
-    font-size: 15.5px;
-    font-style: italic;
-    color: var(--ink-soft);
-  }
+    .plan ul.sub li { font-family: 'Fraunces', serif; font-size: 15.5px; font-style: italic; color: var(--ink-soft); }
 
   /* ---------- section ---------- */
   h2.section {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: 19px;
     font-weight: 600;
     color: var(--navy);
@@ -131,7 +125,7 @@
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.03em;
-    color: #A98B2E;
+    color: #8C6F3F;
     text-transform: uppercase;
     margin: 24px 0 10px;
   }
@@ -148,7 +142,7 @@
     line-height: 1.6;
     margin-bottom: 10px;
   }
-  em.src { font-style: italic; color: var(--ink-soft); }
+  em.src { font-family: 'Fraunces', serif; font-style: italic; color: var(--ink-soft); }
 
   /* ---------- boxes ---------- */
   .box {
@@ -197,7 +191,7 @@
     gap: 20px;
     align-items: flex-start;
     border: 1px solid var(--navy);
-    background: #F4F5F8;
+    background: #F4EFE6;
     padding: 18px 22px;
     margin: 22px 0;
   }
@@ -229,7 +223,7 @@
     margin-top: 36px;
   }
   .panel .panel-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: 17px;
     font-weight: 600;
     color: var(--navy);
@@ -248,7 +242,7 @@
     color: var(--ink);
   }
   .panel .names div strong {
-    color: #A98B2E;
+    color: #8C6F3F;
     font-weight: 600;
   }
 
@@ -340,10 +334,22 @@
     letter-spacing: 0.03em;
   }
 
+
+  /* ---------- reading progress bar ---------- */
+  #reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--gold), var(--bordeaux));
+    z-index: 9999;
+    transition: width 60ms linear;
+  }
 </style>
 </head>
 <body>
-
+<div id="reading-progress"></div>
 <div class="page">
 
   <div class="masthead">
@@ -492,5 +498,20 @@
 
 </div>
 
+
+<script>
+(function () {
+  var bar = document.getElementById('reading-progress');
+  if (!bar) return;
+  function update() {
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+    bar.style.width = Math.min(100, Math.max(0, pct)) + '%';
+  }
+  document.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+</script>
 </body>
 </html>
