@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /espace-eleve.html
+Disallow: /fiches/
+
+Sitemap: https://justicia-academie.com/sitemap.xml
