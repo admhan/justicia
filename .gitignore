@@ -1,3 +1,9 @@
 .DS_Store
 __pycache__/
 *.pyc
+
+# Clés Supabase et autres secrets : ne jamais versionner
+.env
+.env.*
+supabase/.temp/
+supabase/client.local.js

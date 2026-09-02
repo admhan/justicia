@@ -100,7 +100,7 @@ FOOTER = f"""<footer class="site-footer">
   </div>
   <div class="wrap footer-bottom">
     <span>Justicia Académie</span>
-    <span>Mentions légales · Politique de confidentialité</span>
+    <span><a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a></span>
   </div>
 </footer>"""
 
@@ -189,6 +189,7 @@ def render(page):
 
 {FOOTER}
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="script.js"></script>
 </body>
 </html>
