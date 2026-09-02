@@ -1,0 +1,172 @@
+{
+  "introduction-generale-au-droit": {
+    "label": "Introduction générale au droit",
+    "items": [
+      {
+        "num": "1",
+        "file": "fiche1_introduction_generale_au_droit.html",
+        "title": "Identifier le droit : justice, morale, religion et règle juridique"
+      },
+      {
+        "num": "2",
+        "file": "fiche2_introduction_generale_au_droit.html",
+        "title": "Définir le droit objectif : norme, sanction, droit positif, droit naturel"
+      },
+      {
+        "num": "3",
+        "file": "fiche3_introduction_generale_au_droit.html",
+        "title": "L'ordre juridique et la loi : des origines romaines au droit intermédiaire"
+      },
+      {
+        "num": "4",
+        "file": "fiche4_introduction_generale_au_droit.html",
+        "title": "Le Code civil et le destin de la loi : du prestige à l'inflation normative"
+      },
+      {
+        "num": "5",
+        "file": "fiche5_introduction_generale_au_droit.html",
+        "title": "La Constitution et le bloc de constitutionnalité"
+      },
+      {
+        "num": "6",
+        "file": "fiche6_introduction_generale_au_droit.html",
+        "title": "Les sources internationales : traités, droit de l'Union, Conseil de l'Europe"
+      },
+      {
+        "num": "7",
+        "file": "fiche7_introduction_generale_au_droit.html",
+        "title": "Les sources inférieures à la loi : règlements et coutume"
+      },
+      {
+        "num": "8",
+        "file": "fiche8_introduction_generale_au_droit.html",
+        "title": "La jurisprudence est-elle une source du droit ?"
+      },
+      {
+        "num": "9",
+        "file": "fiche9_introduction_generale_au_droit.html",
+        "title": "Le contrôle de constitutionnalité : du contrôle a priori à la QPC"
+      },
+      {
+        "num": "10",
+        "file": "fiche10_introduction_generale_au_droit.html",
+        "title": "Le contrôle de conventionnalité et le contrôle de légalité"
+      }
+    ]
+  },
+  "methodologie-universitaire": {
+    "label": "Méthodologie universitaire",
+    "items": [
+      {
+        "num": "1",
+        "file": "fiche1_methodologie_universitaire.html",
+        "title": "S'adapter à l'université : exigences, autonomie, organisation"
+      },
+      {
+        "num": "2",
+        "file": "fiche2_methodologie_universitaire.html",
+        "title": "Les documents doctrinaux : les connaître, les trouver, les citer"
+      },
+      {
+        "num": "3",
+        "file": "fiche3_methodologie_universitaire.html",
+        "title": "Les documents législatifs : hiérarchie, domaines d'application, codification"
+      },
+      {
+        "num": "4",
+        "file": "fiche4_methodologie_universitaire.html",
+        "title": "Rechercher un texte : sources officielles, sources privées, outils"
+      },
+      {
+        "num": "5",
+        "file": "fiche5_methodologie_universitaire.html",
+        "title": "Les documents juridictionnels : décisions, avis, pièces de procédure"
+      },
+      {
+        "num": "6",
+        "file": "fiche6_methodologie_universitaire.html",
+        "title": "Rechercher une décision de justice : sources et numérotations"
+      },
+      {
+        "num": "7",
+        "file": "fiche7_methodologie_universitaire.html",
+        "title": "Le langage juridique : précision, polysémie, vocabulaire de base"
+      },
+      {
+        "num": "8",
+        "file": "fiche8_methodologie_universitaire.html",
+        "title": "Lire une règle juridique : analyser le texte, puis l'interpréter"
+      },
+      {
+        "num": "9",
+        "file": "fiche9_methodologie_universitaire.html",
+        "title": "Lire un arrêt de la Cour de cassation : structure et portée"
+      },
+      {
+        "num": "10",
+        "file": "fiche10_methodologie_universitaire.html",
+        "title": "Le syllogisme juridique et la qualification des faits"
+      }
+    ]
+  },
+  "droit-constitutionnel": {
+    "label": "Droit constitutionnel",
+    "items": [
+      {
+        "num": "1",
+        "file": "fiche1_droit_constitutionnel.html",
+        "title": "Introduction au droit constitutionnel"
+      },
+      {
+        "num": "2",
+        "file": "fiche2_droit_constitutionnel.html",
+        "title": "La Ve République : origines et esprit d'un régime"
+      },
+      {
+        "num": "3",
+        "file": "fiche3_droit_constitutionnel.html",
+        "title": "L'exécutif sous la Ve République : un couple à dominante présidentielle"
+      },
+      {
+        "num": "4",
+        "file": "fiche4_droit_constitutionnel.html",
+        "title": "Le pouvoir législatif sous la Ve République : le Parlement et la fabrique de la loi"
+      },
+      {
+        "num": "5",
+        "file": "fiche5_droit_constitutionnel.html",
+        "title": "L'autorité judiciaire sous la Ve République : le dualisme juridictionnel"
+      }
+    ]
+  },
+  "histoire-du-droit": {
+    "label": "Histoire du droit",
+    "items": [
+      {
+        "num": "1",
+        "file": "fiche1_histoire_du_droit.html",
+        "title": "La naissance du droit français : l'héritage de Rome"
+      },
+      {
+        "num": "2",
+        "file": "fiche2_histoire_du_droit.html",
+        "title": "Le Moyen Âge : des royaumes barbares à la centralisation monarchique"
+      },
+      {
+        "num": "3",
+        "file": "fiche3_histoire_du_droit.html",
+        "title": "L'époque moderne : apogée et crépuscule de la monarchie absolue"
+      },
+      {
+        "num": "4",
+        "file": "fiche4_histoire_du_droit.html",
+        "title": "La Révolution française et le XIXe siècle : la France en quête de régime"
+      },
+      {
+        "num": "5",
+        "file": "fiche5_histoire_du_droit.html",
+        "title": "Le XXe siècle : guerres mondiales et refondations républicaines"
+      }
+    ]
+  }
+}

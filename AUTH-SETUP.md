@@ -1,65 +1,61 @@
-# Mise en place de l'authentification réelle — guide pas à pas
+# Authentification et stockage des fiches — état du chantier
 
-Ce document sépare ce qui vous revient (compte, décisions) de ce qui revient
-au code (déjà préparé ou prêt à l'être dès que vous avez les clés).
+## Fait, en production sur le projet Supabase JusticiaSupabase (`ybpgwhmfxxsugiyevylj`)
 
-## Votre part
+- **Authentification réelle** : `espace-eleve.html` et `script.js` utilisent
+  Supabase Auth (inscription, connexion, session, déconnexion). Plus de
+  démonstration côté client.
+- **Base de données** : table `profiles` (un profil par compte, créé
+  automatiquement à l'inscription via déclencheur), sécurité au niveau ligne
+  activée — voir [`supabase/schema.sql`](supabase/schema.sql).
+- **Stockage des fiches (option robuste retenue)** : les 30 fiches ne sont
+  plus des fichiers publics dans le dépôt. Elles vivent dans le compartiment
+  privé Supabase Storage `fiches`, accessible uniquement via URL signée
+  (validité 60 secondes), elle-même délivrée seulement si
+  `profiles.subscription_status = 'active'`. Testé de bout en bout : accès
+  refusé sans abonnement actif, autorisé une fois activé, contenu
+  byte-identique à l'original.
+- `fiches/index.html` liste les titres et génère les URL signées au clic
+  (voir `.fiche-link` dans `script.js`). Ses métadonnées (titres, numéros,
+  chemins) sont figées dans `_fiches_metadata.json`, plus besoin des
+  fichiers sources locaux pour régénérer la page.
+- Sécurité vérifiée automatiquement (`get_advisors`) : un point corrigé
+  (fonction interne du déclencheur rendue non appelable depuis l'API
+  publique), aucun avertissement restant.
 
-### 1. Créer le projet Supabase
+## Comment ajouter ou modifier une fiche désormais
 
-- Aller sur [supabase.com](https://supabase.com), créer un compte, créer un
-  nouveau projet (choisir une région proche, ex. Europe/Paris ou Frankfurt).
-- Une fois créé : `Project Settings` → `API`. Deux valeurs à me transmettre :
-  - **Project URL** (ex. `https://xxxxxxxx.supabase.co`)
-  - **anon public key** (longue chaîne, commence par `eyJ...`)
-  - Ne jamais transmettre la **service_role key** : elle contourne toutes
-    les règles de sécurité, elle ne doit exister que dans Supabase lui-même.
+1. Déposer le nouveau fichier HTML dans le compartiment Storage `fiches`
+   (tableau de bord Supabase → Storage → fiches), en respectant
+   l'arborescence `matiere/fiche.html`.
+2. Mettre à jour `_fiches_metadata.json` (numéro, nom de fichier, titre).
+3. `python3 _build_fiches_index.py` pour régénérer `fiches/index.html`.
 
-### 2. Exécuter le schéma
+## Ce qui reste de votre côté
 
-- `SQL Editor` → coller le contenu de [`supabase/schema.sql`](supabase/schema.sql) → Run.
-- Si vous voulez la protection "robuste" des fiches (recommandée), suivre
-  aussi les étapes de la section 2 du fichier (création du bucket Storage).
+1. **Modèle d'abonnement** : qui passe `subscription_status` à `active` —
+   vous manuellement dans Supabase (`Table Editor` → `profiles`), ou un
+   paiement automatisé (Stripe) plus tard ? À trancher pour la suite.
+2. **Double authentification** : activer sur vos comptes GitHub et
+   Supabase (réglages personnels, je n'y ai pas accès).
+3. **Contenu légal** : compléter les champs entre crochets de
+   [`mentions-legales.html`](mentions-legales.html) et
+   [`politique-de-confidentialite.html`](politique-de-confidentialite.html)
+   (raison sociale, SIRET, adresse, durées de conservation), puis faire
+   valider avant publication.
+4. **Site URL Supabase** (`Authentication` → `URL Configuration`) : toujours
+   à régler sur `https://admhan.github.io/justicia/`, sinon les liens de
+   confirmation par e-mail des futurs élèves redirigent vers une adresse
+   morte après une inscription réussie.
+5. **En-têtes de sécurité** : à ajouter selon l'hébergeur final si vous
+   voulez un contrôle plus fin que ce que permet GitHub Pages.
 
-### 3. Décider du modèle d'abonnement
+## Notes techniques
 
-- Qui passe `subscription_status` à `active` pour un élève : vous
-  manuellement dans Supabase (`Table Editor` → `profiles`), ou un paiement
-  automatisé (Stripe) plus tard ? Dites-le-moi, ça change le code à écrire.
-
-### 4. Sécurité de compte
-
-- Activer la double authentification sur votre compte GitHub
-  (`Settings` → `Password and authentication`).
-- Idem sur le compte Supabase une fois créé.
-
-### 5. Contenu légal
-
-- Brouillons déjà rédigés : [`mentions-legales.html`](mentions-legales.html)
-  et [`politique-de-confidentialite.html`](politique-de-confidentialite.html),
-  liés depuis le pied de page de tout le site. Les champs entre crochets
-  (raison sociale, adresse, SIRET, durées de conservation) sont à compléter
-  par vous, puis à faire valider avant publication — obligation renforcée
-  car le site s'adresse en partie à des mineurs.
-
-## Ma part (dès que j'ai l'URL et la clé publique)
-
-- Remplacer la connexion de démonstration dans `espace-eleve.html` et
-  `script.js` par de vrais appels Supabase Auth (inscription, connexion,
-  session, mot de passe oublié) — le code cible est déjà documenté dans
-  [`supabase/client.example.js`](supabase/client.example.js), il ne reste
-  qu'à y mettre les vraies clés et à le brancher aux pages.
-- Brancher l'affichage de l'espace élève sur `profiles.subscription_status`.
-- Si option robuste choisie (retenu) : servir les fiches depuis le bucket
-  privé au lieu des fichiers publics actuels, et retirer `fiches/` du
-  dépôt public une fois la bascule faite.
-- Ajouter les en-têtes de sécurité compatibles avec l'hébergeur choisi.
-- Rien de tout cela ne sera poussé sur GitHub sans votre confirmation.
-
-## Déjà fait, sans dépendance à vos clés
-
-- `.gitignore` protège désormais tout fichier `.env*` et
-  `supabase/client.local.js` d'un envoi accidentel sur GitHub.
-- Pages légales créées et reliées dans tous les pieds de page du site.
-- Schéma de base de données et exemple d'intégration prêts, à activer dès
-  que le projet Supabase existe.
+- La clé publique (`sb_publishable_...`) présente dans `script.js` est sans
+  risque : elle est conçue pour être visible côté client, l'accès réel est
+  tranché par les règles RLS côté serveur, pas par cette clé.
+- Une fonction Edge temporaire (`admin-upload-fiche`) a servi à la migration
+  initiale des 30 fichiers ; elle a été neutralisée après usage (renvoie
+  410 et exige un jeton valide) plutôt que supprimée, faute d'outil de
+  suppression disponible.

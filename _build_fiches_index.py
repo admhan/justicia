@@ -1,14 +1,23 @@
 # -*- coding: utf-8 -*-
-"""Génère site/fiches/index.html à partir des fiches copiées dans site/fiches/.
+"""Génère site/fiches/index.html à partir des métadonnées figées dans
+_fiches_metadata.json.
+
+Les fiches elles-mêmes ne sont plus stockées dans le dépôt : elles vivent
+dans le compartiment privé Supabase Storage "fiches", livrées via URL
+signée après vérification de l'abonnement (voir supabase/schema.sql).
+Ce script ne fait donc que régénérer la page qui liste leurs titres.
+
+Pour ajouter/retirer une fiche : mettre à jour _fiches_metadata.json (et
+le contenu réel du compartiment Storage), puis relancer ce script.
 
 Usage : python3 _build_fiches_index.py
 """
 import json
-import re
 from pathlib import Path
 
 SITE = Path(__file__).parent
 FICHES = SITE / "fiches"
+METADATA = json.loads((SITE / "_fiches_metadata.json").read_text(encoding="utf-8"))
 
 SUBJECTS = {
     "introduction-generale-au-droit": "Introduction générale au droit",
@@ -39,25 +48,14 @@ WORDMARK = '<span class="brand-word"><span class="w1">Justicia</span><span class
 
 
 def gather():
-    data = {}
-    for slug, label in SUBJECTS.items():
-        folder = FICHES / slug
-        items = []
-        for f in sorted(folder.glob("fiche*.html"), key=lambda p: int(re.search(r"fiche(\d+)_", p.name).group(1))):
-            html = f.read_text(encoding="utf-8", errors="ignore")
-            h1 = re.search(r"<h1>(.*?)</h1>", html, re.S)
-            num = re.search(r"fiche(\d+)_", f.name).group(1)
-            title = re.sub(r"\s+", " ", h1.group(1)).strip() if h1 else f.name
-            items.append({"num": num, "file": f.name, "title": title})
-        data[slug] = {"label": label, "items": items}
-    return data
+    return {slug: METADATA[slug] for slug in SUBJECTS}
 
 
 def render_matiere(slug, label, items, roman):
     rows = "\n".join(
         f'''            <li>
               <span class="sub-num" aria-hidden="true">{it['num']}.</span>
-              <a href="{slug}/{it['file']}">{it['title']}</a>
+              <a href="#" class="fiche-link" data-path="{slug}/{it['file']}">{it['title']}</a>
             </li>'''
         for it in items
     )
@@ -131,6 +129,7 @@ def render_index(data):
       <p class="crumbs"><a href="../espace-eleve.html">Mon espace</a> · Mes fiches de cours</p>
       <h1>Mes fiches de <span class="accent-italic">cours</span>.</h1>
       <p class="lede">{total} fiches réparties en quatre matières, rédigées par l'équipe pédagogique de Justicia Académie.</p>
+      <p class="login-error" id="fiche-access-error">Cette fiche n'est pas accessible avec votre abonnement actuel. Contactez votre référent pédagogique si vous pensez qu'il s'agit d'une erreur.</p>
     </div>
   </section>
 {sections}

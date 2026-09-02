@@ -140,6 +140,50 @@ if (loginView && memberView && supabaseClient) {
   }
 }
 
+// Fiches de cours protégées : aucun lien statique, une URL signée est
+// générée à la demande et n'est valable que 60 secondes. L'accès réel est
+// tranché côté serveur par la politique RLS du compartiment (abonnement
+// actif), pas par ce script : un refus ici reflète toujours un vrai refus.
+const ficheLinks = document.querySelectorAll(".fiche-link");
+
+if (ficheLinks.length && supabaseClient) {
+  const ficheError = document.getElementById("fiche-access-error");
+
+  ficheLinks.forEach((link) => {
+    link.addEventListener("click", async (event) => {
+      event.preventDefault();
+      if (ficheError) ficheError.classList.remove("is-visible");
+
+      // Ouvert tout de suite, dans le geste de clic : un navigateur bloque
+      // window.open() appelé après un await, la fenêtre doit donc déjà
+      // exister avant les appels réseau qui suivent.
+      const newTab = window.open("", "_blank", "noopener");
+
+      const { data: sessionData } = await supabaseClient.auth.getSession();
+      if (!sessionData.session) {
+        if (newTab) newTab.close();
+        window.location.href = "../espace-eleve.html";
+        return;
+      }
+
+      const path = link.dataset.path;
+      const { data, error } = await supabaseClient.storage.from("fiches").createSignedUrl(path, 60);
+
+      if (error || !data) {
+        if (newTab) newTab.close();
+        if (ficheError) ficheError.classList.add("is-visible");
+        return;
+      }
+
+      if (newTab) {
+        newTab.location.href = data.signedUrl;
+      } else {
+        window.location.href = data.signedUrl;
+      }
+    });
+  });
+}
+
 // Capsules vidéo : une seule lecture à la fois
 const videos = document.querySelectorAll(".video-card video");
 
