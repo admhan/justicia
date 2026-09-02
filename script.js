@@ -1,5 +1,9 @@
 // Justicia Académie — interactions
 
+// Adresse de réception des demandes de rendez-vous : provisoire le temps de
+// la mise en place définitive, à remplacer ici (un seul endroit) le moment venu.
+const RDV_DESTINATION_EMAIL = "adamhannachi8@gmail.com";
+
 // Menu mobile
 const toggle = document.querySelector(".nav-toggle");
 const nav = document.querySelector(".site-nav");
@@ -214,7 +218,7 @@ if (form) {
       data.get("message") || "",
     ];
     const url =
-      "mailto:contact@justicia-academie.com" +
+      "mailto:" + RDV_DESTINATION_EMAIL +
       "?subject=" + encodeURIComponent("Demande de rendez-vous") +
       "&body=" + encodeURIComponent(lignes.join("\n"));
     window.location.href = url;
