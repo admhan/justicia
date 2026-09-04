@@ -19,7 +19,7 @@
   --gold-soft: #D9C69C;
   --gold-hairline: #CBB683;
 
-  --font-display: "Fraunces", Georgia, serif;
+  --font-display: "Playfair Display", Georgia, serif;
   --font-body: "Inter", "Helvetica Neue", Arial, sans-serif;
 
   --shadow-rest: 5px 5px 0 var(--ink);
@@ -1325,6 +1325,101 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); }
 }
 
 .fiche-list a:hover { color: var(--bordeaux); }
+
+/* ---------- photographies ---------- */
+
+.photo {
+  margin: 0;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  box-shadow: var(--shadow-rest);
+  padding: 0.85rem;
+}
+
+.photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.photo figcaption {
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  padding: 0.85rem 0.15rem 0.1rem;
+  border-top: 1px solid var(--gold-hairline);
+  margin-top: 0.85rem;
+}
+
+/* Bandeau pleine largeur, entre deux blocs de texte. */
+.photo--bandeau {
+  margin-block: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.photo--bandeau img {
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+}
+
+/* Le recadrage en bandeau rogne le haut et le bas à parts égales. Sur une
+   photo dont le sujet n'est pas au centre du cadre, on déplace le point
+   d'ancrage pour ne pas l'amputer. */
+.photo--cadrage-bas img { object-position: center 72%; }
+
+/* Portrait vertical, glissé dans une colonne de texte. */
+.photo--portrait {
+  margin-top: 2.2rem;
+}
+
+@media (max-width: 720px) {
+  .photo--bandeau img { aspect-ratio: 3 / 2; }
+}
+
+/* Fiche pas encore ouverte : présente, annoncée, mais hors d'atteinte. */
+
+.fiche-list li.is-locked {
+  grid-template-columns: 2.4rem 1fr auto;
+  align-items: baseline;
+}
+
+.fiche-list li.is-locked .sub-num,
+.fiche-list li.is-locked a {
+  color: var(--ink-faint);
+  cursor: default;
+  pointer-events: none;
+}
+
+.fiche-date {
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  color: var(--gold);
+  white-space: nowrap;
+  padding-left: 1rem;
+}
+
+.fiche-date::before {
+  content: "";
+  display: inline-block;
+  width: 0.62rem;
+  height: 0.52rem;
+  margin-right: 0.45rem;
+  border: 1.2px solid currentColor;
+  border-radius: 1px;
+  box-shadow: 0 -0.28rem 0 -0.13rem currentColor;
+  vertical-align: -0.02rem;
+}
+
+@media (max-width: 560px) {
+  .fiche-list li.is-locked {
+    grid-template-columns: 2.4rem 1fr;
+  }
+  .fiche-date {
+    grid-column: 2;
+    padding-left: 0;
+    margin-top: 0.25rem;
+  }
+}
 
 @media (max-width: 720px) {
   .member-grid { grid-template-columns: 1fr; }

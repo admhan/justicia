@@ -144,11 +144,71 @@ if (loginView && memberView && supabaseClient) {
   }
 }
 
+// Calendrier du semestre : chaque fiche porte sa date de mise à disposition
+// (data-date, posée à la génération depuis _fiches_metadata.json) et arrive
+// verrouillée dans le HTML. On ne lève le verrou que pour les dates échues,
+// à l'ouverture de la page — la page étant servie en statique, c'est le
+// navigateur qui fait avancer le calendrier, sans regénérer le site.
+const ficheItems = document.querySelectorAll(".fiche-item");
+
+function formatJour(date) {
+  const mois = date.toLocaleDateString("fr-FR", { month: "long" });
+  const jour = date.getDate();
+  // En français, le premier du mois s'écrit « 1er », les autres en chiffre nu.
+  return `${jour === 1 ? "1er" : jour} ${mois} ${date.getFullYear()}`;
+}
+
+if (ficheItems.length) {
+  // Minuit du jour courant : une fiche datée d'aujourd'hui s'ouvre dès le
+  // matin, et non à l'heure exacte du chargement.
+  const aujourdhui = new Date();
+  aujourdhui.setHours(0, 0, 0, 0);
+
+  ficheItems.forEach((item) => {
+    const brut = item.dataset.date;
+    const jour = brut ? new Date(brut + "T00:00:00") : null;
+    const label = item.querySelector(".fiche-date");
+    const link = item.querySelector(".fiche-link");
+
+    // Date absente ou illisible : la fiche reste verrouillée, sans date
+    // affichée. Le silence vaut mieux qu'une promesse fausse.
+    if (!jour || Number.isNaN(jour.getTime())) {
+      if (label) label.textContent = "Bientôt disponible";
+      return;
+    }
+
+    if (jour <= aujourdhui) {
+      item.classList.remove("is-locked");
+      if (label) label.remove();
+      if (link) {
+        link.removeAttribute("aria-disabled");
+        link.removeAttribute("tabindex");
+      }
+    } else if (label) {
+      label.textContent = "Disponible le " + formatJour(jour);
+    }
+  });
+
+  // « 3 fiches sur 10 disponibles » sous chaque titre de matière.
+  document.querySelectorAll(".fiche-count").forEach((count) => {
+    const section = count.closest("section");
+    const total = Number(count.dataset.total || 0);
+    const ouvertes = section.querySelectorAll(
+      ".fiche-item:not(.is-locked)"
+    ).length;
+    if (!total) return;
+    count.textContent =
+      ouvertes === total
+        ? `${total} fiches de cours, toutes disponibles.`
+        : `${ouvertes} fiche${ouvertes > 1 ? "s" : ""} disponible${ouvertes > 1 ? "s" : ""} sur ${total}.`;
+  });
+}
+
 // Fiches de cours protégées : aucun lien statique, une URL signée est
 // générée à la demande et n'est valable que 60 secondes. L'accès réel est
 // tranché côté serveur par la politique RLS du compartiment (abonnement
 // actif), pas par ce script : un refus ici reflète toujours un vrai refus.
-const ficheLinks = document.querySelectorAll(".fiche-link");
+const ficheLinks = document.querySelectorAll(".fiche-item:not(.is-locked) .fiche-link");
 
 if (ficheLinks.length && supabaseClient) {
   const ficheError = document.getElementById("fiche-access-error");

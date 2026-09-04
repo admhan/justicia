@@ -52,10 +52,15 @@ def gather():
 
 
 def render_matiere(slug, label, items, roman):
+    # Chaque fiche est écrite verrouillée : c'est le navigateur qui lève le
+    # verrou à la date dite (voir script.js). Sans cela, une page servie en
+    # statique resterait figée sur l'état du jour de sa génération — et un
+    # script cassé ouvrirait tout, au lieu de ne rien ouvrir.
     rows = "\n".join(
-        f'''            <li>
+        f'''            <li class="fiche-item is-locked" data-date="{it['date']}">
               <span class="sub-num" aria-hidden="true">{it['num']}.</span>
-              <a href="#" class="fiche-link" data-path="{slug}/{it['file']}">{it['title']}</a>
+              <a href="#" class="fiche-link" data-path="{slug}/{it['file']}" aria-disabled="true" tabindex="-1">{it['title']}</a>
+              <span class="fiche-date"></span>
             </li>'''
         for it in items
     )
@@ -67,7 +72,7 @@ def render_matiere(slug, label, items, roman):
         <div class="head-text">
           <span class="head-rule" aria-hidden="true"></span>
           <h2>{label}</h2>
-          <p>{len(items)} fiches de cours.</p>
+          <p class="fiche-count" data-total="{len(items)}">{len(items)} fiches de cours.</p>
         </div>
       </div>
       <ul class="fiche-list reveal">
@@ -94,7 +99,7 @@ def render_index(data):
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 </head>
@@ -128,7 +133,7 @@ def render_index(data):
     <div class="wrap">
       <p class="crumbs"><a href="../espace-eleve.html">Mon espace</a> · Mes fiches de cours</p>
       <h1>Mes fiches de <span class="accent-italic">cours</span>.</h1>
-      <p class="lede">{total} fiches réparties en quatre matières, rédigées par l'équipe pédagogique de Justicia Académie.</p>
+      <p class="lede">{total} fiches réparties en quatre matières, rédigées par l'équipe pédagogique de Justicia Académie. Elles s'ouvrent au fil du semestre, au rythme du programme : chaque fiche indique sa date de mise à disposition.</p>
       <p class="login-error" id="fiche-access-error">Cette fiche n'est pas accessible avec votre abonnement actuel. Contactez votre référent pédagogique si vous pensez qu'il s'agit d'une erreur.</p>
     </div>
   </section>
