@@ -148,7 +148,7 @@ def render_index(data):
         {MARK_SVG}
         {WORDMARK}
       </div>
-      <p>Préparer les lycéens et les étudiants de L1 à réussir leur entrée dans les études de droit. Centre à Paris.</p>
+      <p>Préparer les lycéens de première et de terminale à réussir leur entrée en licence de droit. Centre à Paris, et à distance partout ailleurs.</p>
     </div>
     <div>
       <h4>Naviguer</h4>

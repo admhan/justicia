@@ -189,18 +189,34 @@ if (ficheItems.length) {
     }
   });
 
-  // « 3 fiches sur 10 disponibles » sous chaque titre de matière.
+  // « 3 fiches sur 10 disponibles » sous chaque titre de matière. Quand la
+  // matière n'a rien d'ouvert, annoncer plutôt la date d'ouverture : « 0 sur
+  // 10 » laisserait l'élève devant un compte à rebours sans échéance.
   document.querySelectorAll(".fiche-count").forEach((count) => {
     const section = count.closest("section");
     const total = Number(count.dataset.total || 0);
+    if (!total) return;
     const ouvertes = section.querySelectorAll(
       ".fiche-item:not(.is-locked)"
     ).length;
-    if (!total) return;
-    count.textContent =
-      ouvertes === total
-        ? `${total} fiches de cours, toutes disponibles.`
-        : `${ouvertes} fiche${ouvertes > 1 ? "s" : ""} disponible${ouvertes > 1 ? "s" : ""} sur ${total}.`;
+
+    if (ouvertes === total) {
+      count.textContent = `${total} fiches de cours, toutes disponibles.`;
+      return;
+    }
+
+    if (ouvertes === 0) {
+      const premiere = section.querySelector(".fiche-item.is-locked[data-date]");
+      const jour = premiere && new Date(premiere.dataset.date + "T00:00:00");
+      count.textContent =
+        jour && !Number.isNaN(jour.getTime())
+          ? `${total} fiches de cours, à partir du ${formatJour(jour)}.`
+          : `${total} fiches de cours, pas encore ouvertes.`;
+      return;
+    }
+
+    const s = ouvertes > 1 ? "s" : "";
+    count.textContent = `${ouvertes} fiche${s} disponible${s} sur ${total}.`;
   });
 }
 

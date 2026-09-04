@@ -510,6 +510,100 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); }
 
 .public-block { margin-top: clamp(3rem, 6vw, 4.5rem); }
 
+/* Les composantes de la formule : une liste plutôt que des cartes, parce
+   qu'elles se lisent en séquence et qu'aucune ne se choisit à la place
+   d'une autre. */
+
+.module-list {
+  list-style: none;
+  display: grid;
+  gap: 0;
+  margin-top: 2.6rem;
+  max-width: 56rem;
+}
+
+.module-list li {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr;
+  gap: 1rem;
+  border-top: 1px solid var(--gold-hairline);
+  padding-block: 1.15rem;
+}
+
+.module-list li:last-child { border-bottom: 1px solid var(--gold-hairline); }
+
+.module-list h3 {
+  font-size: 1.12rem;
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.module-list .format {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--forest);
+  border: 1px solid var(--forest);
+  padding: 0.14rem 0.55rem;
+  white-space: nowrap;
+}
+
+.module-list p { font-size: 0.94rem; color: var(--ink-soft); }
+
+.matieres-block { margin-top: 3.4rem; }
+
+/* La seconde formule n'est pas encore vendue : elle s'annonce, sans venir
+   concurrencer visuellement celle qui l'est. D'où le fond lavé et l'absence
+   d'ombre portée, réservée aux blocs sur lesquels on peut agir. */
+
+.teasing {
+  margin-top: 3.4rem;
+  background: var(--forest-wash);
+  border: 1px solid var(--forest);
+  padding: clamp(1.6rem, 3.2vw, 2.4rem);
+  max-width: 56rem;
+}
+
+.teasing-kicker {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--forest);
+  margin-bottom: 0.8rem;
+}
+
+.teasing h3 { font-size: clamp(1.2rem, 2.4vw, 1.5rem); margin-bottom: 0.8rem; }
+
+.teasing > p { font-size: 0.96rem; color: var(--ink-soft); }
+
+.teasing-jalons {
+  list-style: none;
+  margin-top: 1.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 2.4rem;
+  font-size: 0.94rem;
+}
+
+.teasing-jalons .quand {
+  display: block;
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--forest);
+}
+
+.teasing-note {
+  margin-top: 1.4rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--gold-hairline);
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
 .public-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1462,6 +1556,12 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); }
 
 @media (max-width: 720px) {
   .formule-grid { grid-template-columns: 1fr; }
+
+  /* Le numéro passe au-dessus : sur un écran étroit, une colonne de 2.4rem
+     ampute le titre du module au lieu de le cadencer. */
+  .module-list li { grid-template-columns: 1fr; gap: 0.3rem; }
+
+  .teasing-jalons { gap: 1rem; }
 
   .video-grid { grid-template-columns: minmax(0, 21rem); }
 
