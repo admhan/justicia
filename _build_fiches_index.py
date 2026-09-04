@@ -134,7 +134,7 @@ def render_index(data):
       <p class="crumbs"><a href="../espace-eleve.html">Mon espace</a> · Mes fiches de cours</p>
       <h1>Mes fiches de <span class="accent-italic">cours</span>.</h1>
       <p class="lede">{total} fiches réparties en quatre matières, rédigées par l'équipe pédagogique de Justicia Académie. Elles s'ouvrent au fil du semestre, au rythme du programme : chaque fiche indique sa date de mise à disposition.</p>
-      <p class="login-error" id="fiche-access-error">Cette fiche n'est pas accessible avec votre abonnement actuel. Contactez votre référent pédagogique si vous pensez qu'il s'agit d'une erreur.</p>
+      <p class="login-error" id="fiche-access-error">Cette fiche n'est pas accessible : elle n'est pas encore ouverte, ou votre abonnement ne la couvre pas. Contactez votre référent pédagogique si vous pensez qu'il s'agit d'une erreur.</p>
     </div>
   </section>
 {sections}
