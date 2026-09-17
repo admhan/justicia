@@ -606,7 +606,7 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); }
 
 .public-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: clamp(1.5rem, 3.5vw, 2.6rem);
 }
 
