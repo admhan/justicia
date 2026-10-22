@@ -1657,3 +1657,11 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); }
     cursor: pointer;
   }
 }
+
+.price-legal {
+  margin-top: 0.9rem;
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+}
+
+.price-legal a { text-decoration: underline; }

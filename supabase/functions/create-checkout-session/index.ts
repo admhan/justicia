@@ -56,6 +56,12 @@ Deno.serve(async (req) => {
       billing_address_collection: "auto",
       allow_promotion_codes: true,
       metadata: { formule: "annuelle" },
+      custom_text: {
+        submit: {
+          message:
+            `En payant, vous acceptez les [conditions générales de vente](${siteBase}/cgv.html) et demandez l'accès immédiat à votre espace élève.`,
+        },
+      },
       success_url: `${siteBase}/index.html?paiement=succes#formules`,
       cancel_url: `${siteBase}/index.html?paiement=annule#formules`,
     });

@@ -66,36 +66,36 @@
       <div class="prose article-body reveal">
 
         <p style="border-left: 2px solid var(--bordeaux); padding-left: 1rem; color: var(--bordeaux); font-size: 0.92rem;">
-          Brouillon à compléter et à faire valider avant publication : les champs entre crochets doivent être remplacés par les informations réelles, et le texte relu par un professionnel compte tenu du public mineur du site. Ce document n'est pas un conseil juridique.
+          Brouillon à faire valider avant publication : les champs entre crochets (identité de la structure) doivent être remplacés par les informations réelles, et le texte relu par un professionnel compte tenu du public mineur du site. Ce document n'est pas un conseil juridique.
         </p>
 
         <h2 style="margin-top: 2.5rem;">Qui est responsable de vos données</h2>
         <p>[Raison sociale de Justicia Académie], [adresse], est responsable du traitement des données personnelles collectées sur ce site. Pour toute question, contactez <a href="mailto:contact@justicia-academie.com">contact@justicia-academie.com</a>.</p>
 
         <h2>Un mot sur les élèves mineurs</h2>
-        <p>Une partie de nos élèves sont mineurs. Nous limitons la collecte au strict nécessaire à la préparation pédagogique et à la relation avec la famille, et associons systématiquement un parent ou représentant légal à l'inscription et au suivi. [À préciser : modalités de recueil du consentement parental pour la création d'un compte élève, conformément à l'article 8 du RGPD et aux recommandations de la CNIL pour les mineurs de moins de 15 ans.]</p>
+        <p>Une partie de nos élèves sont mineurs. Nous limitons la collecte au strict nécessaire à la préparation pédagogique et à la relation avec la famille, et associons systématiquement un parent ou représentant légal à l'inscription et au suivi. L'abonnement est souscrit et payé par un parent ou représentant légal pour tout élève mineur ; le compte est créé avec l'adresse e-mail fournie lors du paiement.</p>
 
         <h2>Données collectées</h2>
         <ul>
           <li><strong>Formulaire de rendez-vous</strong> : nom, statut (lycéen, étudiant, parent), e-mail, téléphone, message libre.</li>
-          <li><strong>Espace élève</strong> (une fois activé) : e-mail, mot de passe (jamais stocké en clair, géré par notre prestataire d'authentification), formule suivie, statut d'abonnement.</li>
-          <li>Aucune donnée de paiement n'est stockée par nos soins. [À compléter si un prestataire de paiement est mis en place : nom du prestataire, ex. Stripe.]</li>
+          <li><strong>Abonnement et espace élève</strong> : adresse e-mail, mot de passe facultatif (jamais stocké en clair, géré par notre prestataire d'authentification), formule souscrite, statut et date de fin d'abonnement, date et montant du paiement.</li>
+          <li><strong>Paiement</strong> : le règlement est réalisé sur la page sécurisée de Stripe. Nous ne voyons ni ne stockons jamais votre numéro de carte ; nous conservons uniquement l'e-mail, le montant et la date du paiement.</li>
         </ul>
 
         <h2>Finalités et base légale</h2>
         <p>Ces données sont utilisées pour répondre aux demandes de rendez-vous, assurer le suivi pédagogique des élèves inscrits, et gérer l'accès à l'espace élève selon l'abonnement. Base légale : exécution des mesures précontractuelles ou du contrat de formation, et intérêt légitime pour la relation pédagogique.</p>
 
         <h2>Sous-traitants et hébergement</h2>
-        <p>Le site est hébergé par GitHub Pages (GitHub, Inc., États-Unis). L'authentification et le stockage des données de compte, une fois l'espace élève activé, sont assurés par Supabase (Supabase Inc.), hébergé dans l'Union européenne. [Confirmer la région du projet Supabase choisie et la compléter ici.]</p>
+        <p>Le site est hébergé par Vercel (Vercel Inc., États-Unis). L'authentification et la base de données des comptes sont assurées par Supabase, sur des serveurs situés dans l'Union européenne (Irlande). Les paiements sont traités par Stripe (Stripe Payments Europe, Ltd., Irlande) et les e-mails de service (accès à l'espace élève, connexion) sont envoyés par Resend (États-Unis). Lorsque des données sont transférées hors de l'Union européenne, ce transfert est encadré par les clauses contractuelles types de la Commission européenne ou un mécanisme équivalent.</p>
 
         <h2>Durée de conservation</h2>
-        <p>[À préciser] — par exemple : les données des demandes de rendez-vous non suivies d'inscription sont conservées 12 mois ; les données des comptes élèves sont conservées pendant la durée de la formation et [X] mois après sa fin.</p>
+        <p>Les demandes de rendez-vous non suivies d'un abonnement sont conservées 12 mois. Les données d'un compte élève sont conservées pendant la durée de l'abonnement puis 12 mois. Les justificatifs de paiement sont conservés 10 ans, conformément aux obligations comptables.</p>
 
         <h2>Vos droits</h2>
         <p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité de vos données. Pour un élève mineur, ces droits sont exercés par son représentant légal. Pour les exercer, écrivez à <a href="mailto:contact@justicia-academie.com">contact@justicia-academie.com</a>. Vous pouvez également introduire une réclamation auprès de la CNIL (cnil.fr).</p>
 
         <h2>Cookies</h2>
-        <p>Ce site n'utilise pas de cookies de suivi publicitaire. [À mettre à jour si un outil de mesure d'audience est ajouté : nom de l'outil, finalité, et bandeau de consentement le cas échéant.]</p>
+        <p>Ce site n'utilise ni cookie publicitaire ni outil de mesure d'audience. Il enregistre uniquement dans votre navigateur les informations strictement nécessaires pour maintenir votre connexion à l'espace élève, ce qui ne requiert pas de consentement.</p>
 
       </div>
     </div>
@@ -148,7 +148,7 @@
   </div>
   <div class="wrap footer-bottom">
     <span>Justicia Académie</span>
-    <span><a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a></span>
+    <span><a href="mentions-legales.html">Mentions légales</a> · <a href="cgv.html">Conditions de vente</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a></span>
   </div>
 </footer>
 
