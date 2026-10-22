@@ -44,8 +44,8 @@ if ("IntersectionObserver" in window) {
 // Espace élève : authentification réelle via Supabase Auth.
 // La clé ci-dessous est publique par conception (protégée par les règles
 // RLS côté serveur, voir supabase/schema.sql) : sans danger dans ce fichier.
-const SUPABASE_URL = "https://ybpgwhmfxxsugiyevylj.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_jAq-sH4QE1ke_KFBWEO7zg_YF1lvkbU";
+const SUPABASE_URL = "https://nmgpdirswamnkxexutvu.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_zdY5JqEz8Nep6AGa2_-wwQ_wFnZk9jO";
 
 const supabaseClient =
   typeof window !== "undefined" && window.supabase
@@ -142,6 +142,47 @@ if (loginView && memberView && supabaseClient) {
       window.location.reload();
     });
   }
+}
+
+// Paiement de la formule : le prix (250 €, paiement unique) est fixé côté
+// serveur dans la fonction Edge create-checkout-session, jamais ici — ce
+// script ne fait que déclencher la redirection vers Stripe et afficher le
+// résultat au retour (voir AUTH-SETUP.md, section Stripe).
+const checkoutBtn = document.getElementById("checkout-btn");
+const checkoutError = document.getElementById("checkout-error");
+const checkoutMessage = document.getElementById("checkout-message");
+
+if (checkoutMessage) {
+  const paiement = new URLSearchParams(window.location.search).get("paiement");
+  if (paiement === "succes") {
+    checkoutMessage.textContent =
+      "Paiement reçu, merci ! Un e-mail vous permet de choisir votre mot de passe et d'accéder à votre espace élève (pensez à vérifier vos courriers indésirables).";
+    checkoutMessage.classList.add("is-visible", "is-success");
+  } else if (paiement === "annule") {
+    checkoutMessage.textContent = "Paiement annulé : aucune somme n'a été prélevée.";
+    checkoutMessage.classList.add("is-visible");
+  }
+}
+
+if (checkoutBtn && supabaseClient) {
+  checkoutBtn.addEventListener("click", async () => {
+    checkoutBtn.disabled = true;
+    if (checkoutError) checkoutError.classList.remove("is-visible");
+
+    const { data, error } = await supabaseClient.functions.invoke("create-checkout-session");
+
+    if (error || !(data && data.url)) {
+      checkoutBtn.disabled = false;
+      if (checkoutError) {
+        checkoutError.textContent =
+          "Paiement momentanément indisponible. Écrivez-nous à contact@justicia-academie.com.";
+        checkoutError.classList.add("is-visible");
+      }
+      return;
+    }
+
+    window.location.href = data.url;
+  });
 }
 
 // Calendrier du semestre : chaque fiche porte sa date de mise à disposition
