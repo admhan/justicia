@@ -47,6 +47,12 @@ if ("IntersectionObserver" in window) {
 const SUPABASE_URL = "https://nmgpdirswamnkxexutvu.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_zdY5JqEz8Nep6AGa2_-wwQ_wFnZk9jO";
 
+// Arrivée par le lien de l'e-mail de bienvenue (compte tout juste créé) : à lire
+// avant que le SDK ne retire les jetons de l'adresse, pour inviter l'élève à
+// choisir son mot de passe dès cette première visite.
+const arrivedViaInvite =
+  typeof window !== "undefined" && /(^|[#&])type=invite\b/.test(window.location.hash);
+
 const supabaseClient =
   typeof window !== "undefined" && window.supabase
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
@@ -100,6 +106,22 @@ async function showMemberView() {
 
   loginView.classList.add("is-hidden");
   memberView.classList.remove("is-hidden");
+
+  if (arrivedViaInvite) {
+    const pwdCard = document.getElementById("password-card");
+    const pwdTitle = pwdCard && pwdCard.querySelector("h2");
+    const pwdIntro = pwdCard && pwdCard.querySelector("p");
+    if (pwdCard && pwdTitle && pwdIntro) {
+      pwdTitle.textContent = "Bienvenue ! Choisissez votre mot de passe";
+      pwdIntro.textContent =
+        "Votre accès est activé. Choisissez dès maintenant un mot de passe pour vous reconnecter facilement. Vous pouvez aussi passer cette étape : un lien de connexion vous sera envoyé par e-mail à chaque visite.";
+      pwdCard.classList.add("is-featured");
+      pwdCard.parentNode.prepend(pwdCard);
+      const pwdInput = pwdCard.querySelector("input[type='password']");
+      if (pwdInput) pwdInput.focus({ preventScroll: true });
+      pwdCard.scrollIntoView({ block: "center" });
+    }
+  }
 }
 
 if (loginView && memberView && supabaseClient) {

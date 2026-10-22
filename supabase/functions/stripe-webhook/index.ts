@@ -36,7 +36,7 @@ function welcomeEmail(link: string): string {
 <tr><td style="padding:28px 32px;font-size:16px;line-height:1.6">
 <p style="margin:0 0 16px">Bonjour,</p>
 <p style="margin:0 0 16px">Merci pour votre confiance : votre paiement est bien reçu et votre accès pour l'année est activé.</p>
-<p style="margin:0 0 24px">Cliquez ci-dessous pour ouvrir votre espace élève. Les fois suivantes, il suffira de saisir votre adresse e-mail sur la page de connexion pour recevoir un nouveau lien, sans mot de passe à retenir.</p>
+<p style="margin:0 0 24px">Cliquez ci-dessous pour ouvrir votre espace élève : vous y choisirez tout de suite votre mot de passe. Si vous préférez ne pas en avoir, il suffira de saisir votre adresse e-mail sur la page de connexion pour recevoir un nouveau lien à chaque visite.</p>
 <p style="margin:0 0 24px"><a href="${link}" style="background:#16233F;color:#FDFCF9;text-decoration:none;padding:12px 24px;display:inline-block">Accéder à mon espace</a></p>
 <p style="margin:0;font-size:13px;color:#5A6B87">Ce lien est valable une heure. Une question : répondez simplement à cet e-mail.</p>
 </td></tr></table></td></tr></table></body></html>`;

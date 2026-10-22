@@ -1330,6 +1330,12 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); }
 
 .login-error.is-visible { display: block; }
 
+.member-card.is-featured {
+  grid-column: 1 / -1;
+  border: 1px solid var(--gold);
+  background: var(--sand, #F7F4EC);
+}
+
 .login-info {
   font-size: 0.88rem;
   color: var(--forest, #3D5A45);
