@@ -85,7 +85,7 @@
         <div class="member-head">
           <div>
             <h1>Bonjour, <span class="accent-italic" id="member-name">.</span></h1>
-            <p class="member-sub">Abonnement actif · Formule hebdomadaire, terminale</p>
+            <p class="member-sub"></p>
           </div>
           <button class="btn-logout" id="logout-btn" type="button">Se déconnecter</button>
         </div>
@@ -100,27 +100,22 @@
             </ul>
           </section>
           <section class="member-card">
-            <h2>Ma prochaine séance</h2>
-            <ul>
-              <li>Jeudi 18 h 30 · Centre de Paris <span class="meta">cette semaine</span></li>
-              <li>Au programme : la méthode du commentaire d'arrêt</li>
-              <li>À préparer : relire la fiche 3 de méthodologie</li>
-            </ul>
-          </section>
-          <section class="member-card">
-            <h2>Mes copies corrigées</h2>
-            <ul>
-              <li>Dissertation : la loi et le règlement <span class="meta">corrigée</span></li>
-              <li>Fiche d'arrêt n° 2 <span class="meta">corrigée</span></li>
-              <li>Dissertation : la Constitution <span class="meta">en correction</span></li>
-            </ul>
-          </section>
-          <section class="member-card">
             <h2>Mon référent pédagogique</h2>
             <p>Une question entre deux séances ? Votre référent vous répond sous 24 h ouvrées : <a href="mailto:contact@justicia-academie.com">contact@justicia-academie.com</a></p>
           </section>
+          <section class="member-card">
+            <h2>Mon mot de passe</h2>
+            <p>Facultatif : sans mot de passe, vous recevez un lien de connexion par e-mail à chaque visite. Vous pouvez en définir un pour vous connecter directement.</p>
+            <form class="login-form" id="password-form">
+              <label>Nouveau mot de passe <span class="meta">(8 caractères minimum)</span>
+                <input type="password" name="new_password" autocomplete="new-password" minlength="8" required>
+              </label>
+              <p class="login-error" id="password-error" role="alert"></p>
+              <p class="login-info" id="password-info" role="status" hidden></p>
+              <button class="btn btn--forest" type="submit">Enregistrer le mot de passe</button>
+            </form>
+          </section>
         </div>
-        <p class="demo-note">Espace de démonstration : les contenus affichés sont des exemples destinés à valider la maquette, avant branchement au serveur.</p>
       </div>
 
     </div>

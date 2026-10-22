@@ -159,6 +159,34 @@ if (loginView && memberView && supabaseClient) {
     await showMemberView();
   });
 
+  // Définir ou changer son mot de passe (facultatif) depuis l'espace connecté.
+  const passwordForm = document.getElementById("password-form");
+  if (passwordForm) {
+    const passwordError = document.getElementById("password-error");
+    const passwordInfo = document.getElementById("password-info");
+    passwordForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const newPassword = String(new FormData(passwordForm).get("new_password") || "");
+      const btn = passwordForm.querySelector("button[type='submit']");
+      if (btn) btn.disabled = true;
+      passwordError.classList.remove("is-visible");
+      passwordInfo.hidden = true;
+
+      const { error } = await supabaseClient.auth.updateUser({ password: newPassword });
+      if (btn) btn.disabled = false;
+
+      if (error) {
+        passwordError.textContent =
+          "Mot de passe refusé : 8 caractères minimum, et différent de l'actuel.";
+        passwordError.classList.add("is-visible");
+        return;
+      }
+      passwordForm.reset();
+      passwordInfo.textContent = "Mot de passe enregistré. Vous pouvez désormais vous connecter avec.";
+      passwordInfo.hidden = false;
+    });
+  }
+
   const logoutBtn = document.getElementById("logout-btn");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", async () => {
