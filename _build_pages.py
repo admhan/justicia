@@ -56,7 +56,7 @@ def header(active=""):
         <span class="nav-espace-label">Espace élève</span>
         <span class="status-dot" aria-hidden="true"></span>
       </a>
-      <a class="btn" href="index.html#rendez-vous">Prendre rendez-vous</a>
+      <a class="btn" href="index.html#abonnement">S'abonner</a>
     </nav>
   </div>
 </header>"""
@@ -85,7 +85,7 @@ FOOTER = f"""<footer class="site-footer">
       <ul>
         <li><a href="mailto:contact@justicia-academie.com">contact@justicia-academie.com</a></li>
         <li>Paris</li>
-        <li><a href="index.html#rendez-vous">Prendre rendez-vous</a></li>
+        <li><a href="index.html#abonnement">S'abonner</a></li>
       </ul>
     </div>
   </div>

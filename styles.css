@@ -554,6 +554,7 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); }
 .module-list p { font-size: 0.94rem; color: var(--ink-soft); }
 
 .price-block {
+  scroll-margin-top: 6rem;
   margin-top: 2.4rem;
   padding-top: 2rem;
   border-top: 1px solid var(--gold-hairline);
