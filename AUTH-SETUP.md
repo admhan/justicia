@@ -14,14 +14,24 @@ Tout ce qui suit mentionnant `ybpgwhmfxxsugiyevylj` est l'ancien projet.
 - Stripe (mode test) : produit « Formule Justicia Académie » 250 € unique
   (`price_1UTGR9QtGUTsMKkWDJWCIzdX`), webhook `we_1UTGT6QtGUTsMKkWEvYz1UlH` sur
   `checkout.session.completed`.
-- **Activation automatique** : après paiement, le webhook envoie une invitation
-  par e-mail (l'élève choisit son mot de passe) et passe le profil à `active`
-  pour un an. Plus d'activation manuelle.
+- **Activation automatique** : après paiement, le webhook crée le compte, passe
+  le profil à `active` pour un an et envoie par e-mail (Resend) un lien d'accès.
+  Plus d'activation manuelle.
+- **Connexion sans mot de passe** : la page espace-eleve demande l'e-mail ; la
+  fonction `send-login-link` envoie un lien (limité à 1 demande par minute et
+  par adresse, réponse identique que l'adresse existe ou non).
+- **E-mails** : envoyés par l'API Resend depuis les fonctions Edge (pas par le
+  SMTP de Supabase). Secrets : `RESEND_API_KEY`, et `MAIL_FROM` pour changer
+  l'expéditeur (par défaut un domaine déjà vérifié sur le compte Resend ; à
+  remplacer par `Justicia Académie <contact@justicia-academie.com>` dès que ce
+  domaine est vérifié dans Resend, ce qui demande un emplacement de domaine libre
+  dans le forfait Resend et l'ajout des enregistrements DNS).
 
 À faire de votre côté :
 1. Secrets des fonctions Edge (Supabase → Edge Functions → Secrets) :
-   `STRIPE_SECRET_KEY` (clé `sk_test_...`) et `STRIPE_WEBHOOK_SECRET`
-   (`whsec_...`, visible dans Stripe → Developers → Webhooks → ce endpoint).
+   `STRIPE_SECRET_KEY` (clé `sk_test_...`), `STRIPE_WEBHOOK_SECRET`
+   (`whsec_...`, visible dans Stripe → Developers → Webhooks → ce endpoint) et
+   `RESEND_API_KEY` (clé `re_...`).
 2. Supabase → Authentication → URL Configuration : Site URL
    `https://www.justicia-academie.com` et ajouter
    `https://www.justicia-academie.com/espace-eleve.html` aux Redirect URLs.

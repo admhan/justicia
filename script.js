@@ -124,24 +124,20 @@ if (loginView && memberView && supabaseClient) {
     // Sans mot de passe : envoi d'un lien de connexion par e-mail. Seuls les
     // comptes existants (créés au paiement) peuvent se connecter.
     if (!password) {
-      const { error: otpError } = await supabaseClient.auth.signInWithOtp({
-        email,
-        options: {
-          shouldCreateUser: false,
-          emailRedirectTo: window.location.origin + window.location.pathname,
-        },
+      const { error: otpError } = await supabaseClient.functions.invoke("send-login-link", {
+        body: { email },
       });
       if (submitBtn) submitBtn.disabled = false;
       if (otpError) {
         loginError.textContent =
-          "Envoi impossible : adresse inconnue ou trop de demandes. Réessayez dans quelques minutes.";
+          "Envoi impossible pour le moment. Vérifiez l'adresse saisie et réessayez dans quelques minutes.";
         loginError.classList.add("is-visible");
         return;
       }
       loginError.classList.remove("is-visible");
       if (loginInfo) {
         loginInfo.textContent =
-          "Lien envoyé. Ouvrez votre boîte mail (et les courriers indésirables) puis cliquez sur le lien.";
+          "Si cette adresse correspond à un abonnement actif, un lien de connexion vient de vous être envoyé. Ouvrez votre boîte mail (et les courriers indésirables).";
         loginInfo.hidden = false;
       }
       return;
