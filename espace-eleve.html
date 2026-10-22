@@ -63,17 +63,19 @@
       <div id="login-view">
         <div class="login-card">
           <h1>Espace <span class="accent-italic">élève</span></h1>
-          <p class="login-intro">Réservé aux élèves disposant d'un abonnement actif. Vos identifiants vous ont été remis lors de l'inscription.</p>
+          <p class="login-intro">Réservé aux élèves disposant d'un abonnement actif. Saisissez votre adresse e-mail : vous recevez un lien de connexion, sans mot de passe à retenir.</p>
           <form class="login-form" id="login-form">
             <label>Adresse e-mail
               <input type="email" name="email" autocomplete="username" required>
             </label>
-            <label>Mot de passe
-              <input type="password" name="password" autocomplete="current-password" required>
+            <label>Mot de passe <span class="meta">(facultatif)</span>
+              <input type="password" name="password" autocomplete="current-password">
             </label>
             <p class="login-error" id="login-error">Identifiants inconnus ou abonnement inactif. Vérifiez votre saisie ou contactez votre référent pédagogique.</p>
-            <button class="btn btn--forest" type="submit">Se connecter</button>
+            <p class="login-info" id="login-info" role="status" hidden></p>
+            <button class="btn btn--forest" type="submit">Recevoir mon lien de connexion</button>
           </form>
+          <p class="login-note">Vous avez un mot de passe ? Remplissez le champ ci-dessus : le bouton vous connecte directement.</p>
           <p class="login-note">Identifiants perdus ou abonnement expiré ? Écrivez-nous : <a href="mailto:contact@justicia-academie.com">contact@justicia-academie.com</a></p>
         </div>
       </div>

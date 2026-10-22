@@ -119,6 +119,34 @@ if (loginView && memberView && supabaseClient) {
     const submitBtn = loginForm.querySelector("button[type='submit']");
     if (submitBtn) submitBtn.disabled = true;
 
+    const loginInfo = document.getElementById("login-info");
+
+    // Sans mot de passe : envoi d'un lien de connexion par e-mail. Seuls les
+    // comptes existants (créés au paiement) peuvent se connecter.
+    if (!password) {
+      const { error: otpError } = await supabaseClient.auth.signInWithOtp({
+        email,
+        options: {
+          shouldCreateUser: false,
+          emailRedirectTo: window.location.origin + window.location.pathname,
+        },
+      });
+      if (submitBtn) submitBtn.disabled = false;
+      if (otpError) {
+        loginError.textContent =
+          "Envoi impossible : adresse inconnue ou trop de demandes. Réessayez dans quelques minutes.";
+        loginError.classList.add("is-visible");
+        return;
+      }
+      loginError.classList.remove("is-visible");
+      if (loginInfo) {
+        loginInfo.textContent =
+          "Lien envoyé. Ouvrez votre boîte mail (et les courriers indésirables) puis cliquez sur le lien.";
+        loginInfo.hidden = false;
+      }
+      return;
+    }
+
     const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
     if (submitBtn) submitBtn.disabled = false;
@@ -156,7 +184,7 @@ if (checkoutMessage) {
   const paiement = new URLSearchParams(window.location.search).get("paiement");
   if (paiement === "succes") {
     checkoutMessage.textContent =
-      "Paiement reçu, merci ! Un e-mail vous permet de choisir votre mot de passe et d'accéder à votre espace élève (pensez à vérifier vos courriers indésirables).";
+      "Paiement reçu, merci ! Un e-mail vous donne accès à votre espace élève (pensez à vérifier vos courriers indésirables).";
     checkoutMessage.classList.add("is-visible", "is-success");
   } else if (paiement === "annule") {
     checkoutMessage.textContent = "Paiement annulé : aucune somme n'a été prélevée.";

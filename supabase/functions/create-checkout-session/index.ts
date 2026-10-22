@@ -42,7 +42,7 @@ Deno.serve(async (req) => {
   const requestOrigin = req.headers.get("origin") ?? "";
   const siteBase = ALLOWED_ORIGINS.includes(requestOrigin)
     ? requestOrigin + (requestOrigin.includes("github.io") ? "/justicia" : "")
-    : "https://www.justicia-academie.com";
+    : (Deno.env.get("SITE_URL") ?? "https://justicia-fawn.vercel.app");
 
   try {
     const session = await stripe.checkout.sessions.create({

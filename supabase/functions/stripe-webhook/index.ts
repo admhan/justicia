@@ -10,7 +10,9 @@
 import Stripe from "npm:stripe@17.7.0";
 import { createClient } from "npm:@supabase/supabase-js@2";
 
-const SITE_URL = "https://www.justicia-academie.com/espace-eleve.html";
+// Adresse du site : Vercel tant que le domaine justicia-academie.com n'est pas
+// actif ; ensuite, définir le secret SITE_URL (ex. https://www.justicia-academie.com).
+const SITE_URL = `${Deno.env.get("SITE_URL") ?? "https://justicia-fawn.vercel.app"}/espace-eleve.html`;
 
 Deno.serve(async (req) => {
   const stripeSecretKey = Deno.env.get("STRIPE_SECRET_KEY");
