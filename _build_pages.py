@@ -69,7 +69,7 @@ FOOTER = f"""<footer class="site-footer">
         {MARK_SVG}
         {WORDMARK}
       </div>
-      <p>Préparer les lycéens de première et de terminale à réussir leur entrée en licence de droit, et soutenir les étudiants de L1 qui en ont besoin. Centre à Paris, et à distance partout ailleurs.</p>
+      <p>Préparer les lycéens de première et de terminale à réussir leur entrée en licence de droit, et soutenir les étudiants de L1 qui en ont besoin. Formation 100 % en ligne, partout en France.</p>
     </div>
     <div>
       <h4>Naviguer</h4>
@@ -84,7 +84,6 @@ FOOTER = f"""<footer class="site-footer">
       <h4>Contact</h4>
       <ul>
         <li><a href="mailto:contact@justicia-academie.com">contact@justicia-academie.com</a></li>
-        <li>Paris</li>
         <li><a href="index.html#abonnement">S'abonner</a></li>
       </ul>
     </div>
@@ -122,10 +121,7 @@ def course_jsonld(slug, name, description, mode):
         "hasCourseInstance": {
             "@type": "CourseInstance",
             "courseMode": mode,
-            "location": {"@type": "Place", "name": "Justicia Académie", "address": {"@type": "PostalAddress", "addressLocality": "Paris", "addressCountry": "FR"}},
-        },
-    }
-
+            
 
 def article_jsonld(slug, headline, description):
     return {
@@ -241,16 +237,16 @@ PAGES = []
 PAGES.append({
     "slug": "formule-terminale-hebdomadaire.html",
     "title": "Prépa droit en terminale : la formule hebdomadaire — Justicia Académie",
-    "description": "Une séance de préparation au droit chaque semaine pendant l'année de terminale : découverte du droit, méthode universitaire et accompagnement Parcoursup, en petit groupe à Paris.",
+    "description": "Une séance de préparation au droit chaque semaine pendant l'année de terminale : découverte du droit, méthode universitaire et accompagnement Parcoursup, en petit groupe, à distance.",
     "jsonld": [
         course_jsonld("formule-terminale-hebdomadaire.html", "Terminale Droit : formule hebdomadaire",
-                      "Préparation hebdomadaire à l'entrée en licence de droit pendant l'année de terminale : découverte du droit, méthode universitaire, accompagnement Parcoursup.", "Onsite"),
+                      "Préparation hebdomadaire à l'entrée en licence de droit pendant l'année de terminale : découverte du droit, méthode universitaire, accompagnement Parcoursup.", "Online"),
         breadcrumb_jsonld("formule-terminale-hebdomadaire.html", "Terminale : formule hebdomadaire"),
     ],
     "body": page_hero(
         CRUMB_FORMULES,
         'La formule <span class="accent-italic">hebdomadaire</span>, pour préparer le droit toute l\'année de terminale.',
-        "Un rendez-vous chaque semaine, en petit groupe, au centre à Paris : le temps de découvrir le droit en profondeur, de construire une méthode et de soigner son dossier Parcoursup sans précipitation.")
+        "Un rendez-vous chaque semaine, en petit groupe, en visioconférence : le temps de découvrir le droit en profondeur, de construire une méthode et de soigner son dossier Parcoursup sans précipitation.")
     + sec("I.", "À qui s'adresse cette formule.", """
         <p>Aux élèves de terminale qui envisagent sérieusement une licence de droit et veulent transformer cette intuition en projet solide. Aucun prérequis juridique n'est attendu : c'est précisément l'objet de l'année que de construire ce socle.</p>
         <p>C'est la formule la plus complète que nous proposons au lycée. Elle convient particulièrement aux élèves qui préfèrent un travail régulier et progressif à des sessions intensives, et à ceux qui veulent être accompagnés sur Parcoursup au moment où chaque échéance se présente, pas après coup.</p>""")
@@ -272,7 +268,7 @@ PAGES.append({
         </div>""")
     + sec("III.", "L'organisation concrète.", """
         <ul>
-          <li>Une séance par semaine, tout au long de l'année scolaire, au centre à Paris.</li>
+          <li>Une séance par semaine, tout au long de l'année scolaire, en visioconférence.</li>
           <li>Des groupes volontairement restreints, pour que chaque élève soit connu et suivi.</li>
           <li>Des travaux écrits corrigés individuellement, avec des retours détaillés.</li>
           <li>Un point régulier avec les familles sur la progression et le projet d'orientation.</li>
@@ -285,10 +281,10 @@ PAGES.append({
 PAGES.append({
     "slug": "formule-terminale-vacances.html",
     "title": "Prépa droit en terminale : la formule vacances — Justicia Académie",
-    "description": "Des stages intensifs de préparation au droit pendant les vacances scolaires de terminale : immersion dans la discipline, méthode et point Parcoursup, en petit groupe à Paris.",
+    "description": "Des stages intensifs de préparation au droit pendant les vacances scolaires de terminale : immersion dans la discipline, méthode et point Parcoursup, en petit groupe, à distance.",
     "jsonld": [
         course_jsonld("formule-terminale-vacances.html", "Terminale Droit : formule vacances",
-                      "Stages intensifs de préparation à l'entrée en licence de droit pendant les vacances scolaires : immersion dans le droit, méthode universitaire, point Parcoursup.", "Onsite"),
+                      "Stages intensifs de préparation à l'entrée en licence de droit pendant les vacances scolaires : immersion dans le droit, méthode universitaire, point Parcoursup.", "Online"),
         breadcrumb_jsonld("formule-terminale-vacances.html", "Terminale : formule vacances"),
     ],
     "body": page_hero(
@@ -317,7 +313,7 @@ PAGES.append({
     + sec("III.", "L'organisation concrète.", """
         <ul>
           <li>Des stages d'une semaine, proposés à chaque période de vacances scolaires.</li>
-          <li>Au centre à Paris, en petit groupe.</li>
+          <li>En visioconférence, en petit groupe.</li>
           <li>Chaque session peut se suivre indépendamment des autres.</li>
           <li>Un compte rendu individuel est remis à la famille en fin de stage.</li>
         </ul>
@@ -328,11 +324,11 @@ PAGES.append({
 
 PAGES.append({
     "slug": "formule-l1-stage-prerentree.html",
-    "title": "Stage de pré-rentrée L1 droit à Paris — Justicia Académie",
+    "title": "Stage de pré-rentrée L1 droit en ligne — Justicia Académie",
     "description": "Une semaine intensive juste avant la rentrée en L1 de droit : matières du premier semestre, méthode de la dissertation et du commentaire, organisation du travail universitaire.",
     "jsonld": [
         course_jsonld("formule-l1-stage-prerentree.html", "L1 Droit : stage de pré-rentrée",
-                      "Stage intensif d'une semaine avant la rentrée en L1 de droit : introduction aux matières fondamentales, méthode des exercices juridiques, organisation du travail.", "Onsite"),
+                      "Stage intensif d'une semaine avant la rentrée en L1 de droit : introduction aux matières fondamentales, méthode des exercices juridiques, organisation du travail.", "Online"),
         breadcrumb_jsonld("formule-l1-stage-prerentree.html", "L1 : stage de pré-rentrée"),
     ],
     "body": page_hero(
@@ -361,7 +357,7 @@ PAGES.append({
     + sec("III.", "L'organisation concrète.", """
         <ul>
           <li>Une semaine intensive fin août, avant la rentrée universitaire.</li>
-          <li>Au centre à Paris, en petit groupe.</li>
+          <li>En visioconférence, en petit groupe.</li>
           <li>Supports de cours et fiches de méthode remis à chaque participant.</li>
           <li>Ouvert à tous les inscrits en L1 de droit, quelle que soit la faculté.</li>
         </ul>
@@ -405,7 +401,7 @@ PAGES.append({
     + sec("III.", "L'organisation concrète.", """
         <ul>
           <li>Un suivi sur toute l'année universitaire, de septembre aux derniers partiels.</li>
-          <li>Séances au centre à Paris ; certains suivis peuvent être aménagés à distance.</li>
+          <li>Séances en visioconférence.</li>
           <li>Un interlocuteur pédagogique joignable entre les séances.</li>
           <li>Entrée possible en cours d'année, avec une remise à niveau sur ce qui a été traité.</li>
         </ul>

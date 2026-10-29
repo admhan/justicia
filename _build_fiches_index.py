@@ -52,15 +52,10 @@ def gather():
 
 
 def render_matiere(slug, label, items, roman):
-    # Chaque fiche est écrite verrouillée : c'est le navigateur qui lève le
-    # verrou à la date dite (voir script.js). Sans cela, une page servie en
-    # statique resterait figée sur l'état du jour de sa génération — et un
-    # script cassé ouvrirait tout, au lieu de ne rien ouvrir.
     rows = "\n".join(
-        f'''            <li class="fiche-item is-locked" data-date="{it['date']}">
+        f'''            <li class="fiche-item">
               <span class="sub-num" aria-hidden="true">{it['num']}.</span>
-              <a href="#" class="fiche-link" data-path="{slug}/{it['file']}" aria-disabled="true" tabindex="-1">{it['title']}</a>
-              <span class="fiche-date"></span>
+              <a href="#" class="fiche-link" data-path="{slug}/{it['file']}">{it['title']}</a>
             </li>'''
         for it in items
     )
@@ -72,7 +67,7 @@ def render_matiere(slug, label, items, roman):
         <div class="head-text">
           <span class="head-rule" aria-hidden="true"></span>
           <h2>{label}</h2>
-          <p class="fiche-count" data-total="{len(items)}">{len(items)} fiches de cours.</p>
+          <p class="fiche-count" data-total="{len(items)}">{len(items)} fiches de cours, toutes disponibles.</p>
         </div>
       </div>
       <ul class="fiche-list reveal">
@@ -133,7 +128,7 @@ def render_index(data):
     <div class="wrap">
       <p class="crumbs"><a href="../espace-eleve.html">Mon espace</a> · Mes fiches de cours</p>
       <h1>Mes fiches de <span class="accent-italic">cours</span>.</h1>
-      <p class="lede">{total} fiches réparties en quatre matières, rédigées par l'équipe pédagogique de Justicia Académie. Elles s'ouvrent au fil du semestre, au rythme du programme : chaque fiche indique sa date de mise à disposition.</p>
+      <p class="lede">{total} fiches réparties en quatre matières, rédigées par l'équipe pédagogique de Justicia Académie. Toutes sont accessibles dès votre connexion, avec les capsules vidéo associées.</p>
       <p class="login-error" id="fiche-access-error">Cette fiche n'est pas accessible : elle n'est pas encore ouverte, ou votre abonnement ne la couvre pas. Contactez votre référent pédagogique si vous pensez qu'il s'agit d'une erreur.</p>
     </div>
   </section>
@@ -148,7 +143,7 @@ def render_index(data):
         {MARK_SVG}
         {WORDMARK}
       </div>
-      <p>Préparer les lycéens de première et de terminale à réussir leur entrée en licence de droit, et soutenir les étudiants de L1 qui en ont besoin. Centre à Paris, et à distance partout ailleurs.</p>
+      <p>Préparer les lycéens de première et de terminale à réussir leur entrée en licence de droit, et soutenir les étudiants de L1 qui en ont besoin. Formation 100 % en ligne, partout en France.</p>
     </div>
     <div>
       <h4>Naviguer</h4>
@@ -163,7 +158,6 @@ def render_index(data):
       <h4>Contact</h4>
       <ul>
         <li><a href="mailto:contact@justicia-academie.com">contact@justicia-academie.com</a></li>
-        <li>Paris</li>
         <li><a href="../index.html#rendez-vous">Prendre rendez-vous</a></li>
       </ul>
     </div>

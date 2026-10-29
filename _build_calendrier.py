@@ -45,14 +45,14 @@ FORMULES = [
         "nom": "Formule 1 — première et terminale",
         "matieres": ["droit-constitutionnel", "histoire-du-droit"],
         "debut": date(2026, 9, 1),
-        "fin": date(2026, 12, 1),
+        "fin": date(2026, 9, 1),
     },
     {
         # Inscriptions à la mi-novembre, lancement effectif fin décembre.
         "nom": "Formule 2 — méthodologie et introduction au droit",
         "matieres": ["introduction-generale-au-droit", "methodologie-universitaire"],
-        "debut": date(2026, 12, 29),
-        "fin": date(2027, 3, 30),
+        "debut": date(2026, 9, 1),
+        "fin": date(2026, 9, 1),
     },
 ]
 
