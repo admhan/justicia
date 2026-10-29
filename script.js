@@ -276,7 +276,8 @@ if (ficheLinks.length && supabaseClient) {
       // Ouvert tout de suite, dans le geste de clic : un navigateur bloque
       // window.open() appelé après un await, la fenêtre doit donc déjà
       // exister avant les appels réseau qui suivent.
-      const newTab = window.open("", "_blank", "noopener");
+      const newTab = window.open("", "_blank");
+      if (newTab) newTab.opener = null;
 
       const { data: sessionData } = await supabaseClient.auth.getSession();
       if (!sessionData.session) {
@@ -294,10 +295,25 @@ if (ficheLinks.length && supabaseClient) {
         return;
       }
 
+      // Supabase Storage sert le HTML en text/plain (protection anti-XSS) :
+      // le navigateur afficherait le code source. On télécharge donc la fiche
+      // avec l'URL signée et on l'ouvre comme une vraie page HTML.
+      let pageUrl = data.signedUrl;
+      try {
+        const reponse = await fetch(data.signedUrl);
+        if (!reponse.ok) throw new Error("fiche indisponible");
+        const html = await reponse.text();
+        pageUrl = URL.createObjectURL(new Blob([html], { type: "text/html;charset=utf-8" }));
+      } catch (err) {
+        if (newTab) newTab.close();
+        if (ficheError) ficheError.classList.add("is-visible");
+        return;
+      }
+
       if (newTab) {
-        newTab.location.href = data.signedUrl;
+        newTab.location.href = pageUrl;
       } else {
-        window.location.href = data.signedUrl;
+        window.location.href = pageUrl;
       }
     });
   });
